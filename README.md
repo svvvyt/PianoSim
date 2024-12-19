@@ -21,7 +21,7 @@ git clone https://github.com/svvvyt/PianoSim.git
 2. Navigate to the project directory;
 
 ```bash
-cd piano-sim
+cd PianoSim
 ```
 
 3. Install dependencies:
