@@ -1,0 +1,17 @@
+.help-card {
+  font-family: monospace;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 1.25em;
+  text-align: center;
+}
+
+.help-card code {
+  font-family: monospace;
+  background-color: #eee;
+  padding: 2px 4px;
+  border-radius: 3px;
+}

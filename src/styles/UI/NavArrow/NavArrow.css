@@ -1,0 +1,17 @@
+.nav-arrow {
+  background-color: #ccc;
+  border: none;
+  font-size: 1em;
+  padding: 10px;
+  cursor: pointer;
+  margin: 0 20px;
+}
+
+.nav-arrow:hover {
+  background-color: #bbb;
+}
+
+.nav-arrow:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
