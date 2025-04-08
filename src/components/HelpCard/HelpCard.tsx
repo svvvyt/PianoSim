@@ -8,7 +8,7 @@ export const HelpCard: React.FC = () => {
         <strong>Keyboard controls:</strong>
       </p>
       <p>
-        Notes: <code>Q W E R T Y U I O P</code> (C to B)
+        Notes: <code>Q W E R T Y U I O P [ ]</code> (C to B)
       </p>
       <p>
         Octaves: <code>Z</code> (previous), <code>X</code> (next)
