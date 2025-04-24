@@ -1,4 +1,5 @@
 import React from 'react';
+
 import '../../styles/HelpCard/HelpCard.css';
 
 export const HelpCard: React.FC = () => {
