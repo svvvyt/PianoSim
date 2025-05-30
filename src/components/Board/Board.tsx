@@ -45,7 +45,6 @@ export const Board: React.FC = () => {
       setCurrentOctave(currentOctave + 1);
   };
 
-  // Добавление ноты в последовательность
   const addNoteToSequence = (note: string) => {
     setNoteSequence((prev) => [...prev, { note, duration: 'q' }]);
   };
@@ -60,7 +59,7 @@ export const Board: React.FC = () => {
               key={note.name}
               note={note}
               isActive={activeNotes.has(note.name)}
-              onNotePlayed={() => addNoteToSequence(note.name)} // Передаем ноту в нотный стан
+              onNotePlayed={() => addNoteToSequence(note.name)}
             />
           ))}
         </div>

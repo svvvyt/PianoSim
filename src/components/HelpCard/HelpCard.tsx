@@ -14,7 +14,6 @@ export const HelpCard: React.FC = () => {
       <p>
         Octaves: <code>Z</code> (previous), <code>X</code> (next)
       </p>
-      <p>Check that your keyboard is set to English!</p>
     </div>
   );
 };

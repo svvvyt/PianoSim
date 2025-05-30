@@ -16,7 +16,7 @@ export const Key: React.FC<KeyProps> = ({ note, isActive, onNotePlayed }) => {
   const handleStart = async () => {
     await playNote(`${note.name}`);
     setIsPressed(true);
-    onNotePlayed?.(note.name); // Уведомляем о воспроизведении ноты
+    onNotePlayed?.(note.name);
   };
 
   const handleStop = () => {
