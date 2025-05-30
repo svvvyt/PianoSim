@@ -1,27 +1,22 @@
 import { useEffect, useRef } from 'react';
-import { playSound, stopSound } from '../utils/playSound.ts';
+import { playNote, stopAllSounds } from '../utils/sound.ts';
 
 export const useKeyboardControls = (
   keyToNoteMap: Map<string, string>,
-  currentNotes: { name: string; audioFile: string }[],
+  currentNotes: { name: string }[],
   setActiveNotes: (setter: (prev: Set<string>) => Set<string>) => void,
   currentOctave: number,
   setCurrentOctave: (value: number) => void
 ) => {
-  const audioRefs = useRef<Map<string, HTMLAudioElement>>(new Map());
+  const activeNotes = useRef<Set<string>>(new Set());
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = async (event: KeyboardEvent) => {
       const noteName = keyToNoteMap.get(event.key);
-      if (noteName) {
-        if (!audioRefs.current.has(noteName)) {
-          const note = currentNotes.find((n) => n.name === noteName);
-          if (note) {
-            const audio = playSound(note.audioFile);
-            audioRefs.current.set(noteName, audio);
-            setActiveNotes((prev) => new Set(prev).add(noteName));
-          }
-        }
+      if (noteName && !activeNotes.current.has(noteName)) {
+        await playNote(noteName);
+        activeNotes.current.add(noteName);
+        setActiveNotes((prev) => new Set(prev).add(noteName));
       } else if (event.key === 'z' && currentOctave > 0) {
         setCurrentOctave(currentOctave - 1);
       } else if (event.key === 'x' && currentOctave < 8) {
@@ -32,16 +27,13 @@ export const useKeyboardControls = (
     const handleKeyUp = (event: KeyboardEvent) => {
       const noteName = keyToNoteMap.get(event.key);
       if (noteName) {
-        const audio = audioRefs.current.get(noteName);
-        if (audio) {
-          stopSound(audio);
-          audioRefs.current.delete(noteName);
-          setActiveNotes((prev) => {
-            const newSet = new Set(prev);
-            newSet.delete(noteName);
-            return newSet;
-          });
-        }
+        activeNotes.current.delete(noteName);
+        stopAllSounds();
+        setActiveNotes((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(noteName);
+          return newSet;
+        });
       }
     };
 
@@ -51,8 +43,7 @@ export const useKeyboardControls = (
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
-      audioRefs.current.forEach(stopSound);
-      audioRefs.current.clear();
+      stopAllSounds();
     };
   }, [
     keyToNoteMap,

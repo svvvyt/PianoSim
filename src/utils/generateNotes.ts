@@ -26,7 +26,6 @@ export const generateNotes = (
       if (limits && octave >= limits.min && octave <= limits.max) {
         notes.push({
           name: `${name}${octave}`,
-          audioFile: `./sounds/${name}${octave}.mp3`,
           type,
           octave,
         });

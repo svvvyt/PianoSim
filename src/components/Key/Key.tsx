@@ -1,27 +1,26 @@
-import React, { useRef, useState } from 'react';
-
+import React, { useState } from 'react';
 import { Note } from '../../models/Note.ts';
-import { playSound, stopSound } from '../../utils/playSound.ts';
+import { playNote, stopAllSounds } from '../../utils/sound.ts';
 
-import '../../styles/Button/Button.css';
+import '../../styles/Key/Key.css';
 
-interface ButtonProps {
+interface KeyProps {
   note: Note;
   isActive: boolean;
+  onNotePlayed?: (note: string) => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ note, isActive }) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+export const Key: React.FC<KeyProps> = ({ note, isActive, onNotePlayed }) => {
   const [isPressed, setIsPressed] = useState(false);
 
-  const handleStart = () => {
-    audioRef.current = playSound(note.audioFile);
+  const handleStart = async () => {
+    await playNote(`${note.name}`);
     setIsPressed(true);
+    onNotePlayed?.(note.name); // Уведомляем о воспроизведении ноты
   };
 
   const handleStop = () => {
-    stopSound(audioRef.current);
-    audioRef.current = null;
+    stopAllSounds();
     setIsPressed(false);
   };
 
